@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  polytech:
+    build: ./polytech
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@polytech-db:5432/polytech
+    depends_on:
+      - polytech-db
+    restart: always
+
+  polytech-db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=polytech
+    volumes:
+      - polytech-db-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432" # Changed host port to avoid conflict if needed, or stick to standard but expose service internal port. Let's start with 5433 to allow local testing while this runs.
+
+volumes:
+  polytech-db-data:
