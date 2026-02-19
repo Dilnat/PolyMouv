@@ -9,7 +9,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 func main() {
@@ -21,12 +21,12 @@ func main() {
 	}
 
 	var err error
-	db, err = pgx.Connect(context.Background(), dbUrl)
+	db, err = pgxpool.New(context.Background(), dbUrl)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
 		os.Exit(1)
 	}
-	defer db.Close(context.Background())
+	defer db.Close()
 
 	// Create table if not exists
 	_, err = db.Exec(context.Background(), `

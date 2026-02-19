@@ -7,21 +7,28 @@ echo "Starting Verification..."
 
 # 1. Create Student
 echo "Creating Student..."
-curl -v -X POST $BASE_URL/student -d '{"firstname":"John", "name":"Doe", "domain":"IT"}' | grep "John"
+RESPONSE=$(curl -s -X POST $BASE_URL/student -d '{"firstname":"John", "name":"Doe", "domain":"IT"}')
+echo "Response: $RESPONSE"
 
-# Id extraction is tricky without jq, assuming first created is ID 1 for now or rely on consistent output.
-# For manual verification script, simple checks are fine.
+# Extract ID using grep/sed (simple approximation since jq might not be available)
+ID=$(echo $RESPONSE | grep -o '"id":[0-9]*' | cut -d':' -f2)
+echo "Created Student ID: $ID"
+
+if [ -z "$ID" ]; then
+    echo "Failed to create student"
+    exit 1
+fi
 
 echo "Listing Students..."
 curl -v $BASE_URL/student
 
 echo "Getting specific student..."
-curl -v $BASE_URL/student/1
+curl -v $BASE_URL/student/$ID
 
 echo "Updating Student..."
-curl -v -X PUT $BASE_URL/student/1 -d '{"firstname":"Johnny", "name":"Doe", "domain":"IT"}'
+curl -v -X PUT $BASE_URL/student/$ID -d '{"firstname":"Johnny", "name":"Doe", "domain":"IT"}'
 
 echo "Deleting Student..."
-curl -v -X DELETE $BASE_URL/student/1
+curl -v -X DELETE $BASE_URL/student/$ID
 
 echo "Done."

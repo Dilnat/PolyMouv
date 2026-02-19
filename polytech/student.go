@@ -9,6 +9,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 type Student struct {
@@ -18,8 +19,8 @@ type Student struct {
 	Domain    string `json:"domain"`
 }
 
-// Global DB connection
-var db *pgx.Conn
+// Global DB connection pool
+var db *pgxpool.Pool
 
 // Helper for JSON responses
 func jsonResponse(w http.ResponseWriter, status int, payload interface{}) {
@@ -117,11 +118,15 @@ func updateStudent(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = db.Exec(context.Background(),
+	cmdTag, err := db.Exec(context.Background(),
 		"UPDATE students SET firstname=$1, name=$2, domain=$3 WHERE id=$4",
 		s.Firstname, s.Name, s.Domain, id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if cmdTag.RowsAffected() == 0 {
+		http.Error(w, "Student not found", http.StatusNotFound)
 		return
 	}
     
@@ -138,9 +143,13 @@ func deleteStudent(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = db.Exec(context.Background(), "DELETE FROM students WHERE id=$1", id)
+	cmdTag, err := db.Exec(context.Background(), "DELETE FROM students WHERE id=$1", id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if cmdTag.RowsAffected() == 0 {
+		http.Error(w, "Student not found", http.StatusNotFound)
 		return
 	}
 
