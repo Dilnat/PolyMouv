@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -21,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	MI8Service_GetLatestNews_FullMethodName       = "/mi8.MI8Service/GetLatestNews"
 	MI8Service_GetLatestNewsInCity_FullMethodName = "/mi8.MI8Service/GetLatestNewsInCity"
+	MI8Service_CreateNews_FullMethodName          = "/mi8.MI8Service/CreateNews"
 )
 
 // MI8ServiceClient is the client API for MI8Service service.
@@ -33,6 +35,8 @@ type MI8ServiceClient interface {
 	GetLatestNews(ctx context.Context, in *GetLatestNewsRequest, opts ...grpc.CallOption) (*NewsList, error)
 	// Get latest news by city
 	GetLatestNewsInCity(ctx context.Context, in *GetLatestNewsInCityRequest, opts ...grpc.CallOption) (*NewsList, error)
+	// Create news
+	CreateNews(ctx context.Context, in *News, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type mI8ServiceClient struct {
@@ -63,6 +67,16 @@ func (c *mI8ServiceClient) GetLatestNewsInCity(ctx context.Context, in *GetLates
 	return out, nil
 }
 
+func (c *mI8ServiceClient) CreateNews(ctx context.Context, in *News, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, MI8Service_CreateNews_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MI8ServiceServer is the server API for MI8Service service.
 // All implementations must embed UnimplementedMI8ServiceServer
 // for forward compatibility.
@@ -73,6 +87,8 @@ type MI8ServiceServer interface {
 	GetLatestNews(context.Context, *GetLatestNewsRequest) (*NewsList, error)
 	// Get latest news by city
 	GetLatestNewsInCity(context.Context, *GetLatestNewsInCityRequest) (*NewsList, error)
+	// Create news
+	CreateNews(context.Context, *News) (*emptypb.Empty, error)
 	mustEmbedUnimplementedMI8ServiceServer()
 }
 
@@ -88,6 +104,9 @@ func (UnimplementedMI8ServiceServer) GetLatestNews(context.Context, *GetLatestNe
 }
 func (UnimplementedMI8ServiceServer) GetLatestNewsInCity(context.Context, *GetLatestNewsInCityRequest) (*NewsList, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetLatestNewsInCity not implemented")
+}
+func (UnimplementedMI8ServiceServer) CreateNews(context.Context, *News) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method CreateNews not implemented")
 }
 func (UnimplementedMI8ServiceServer) mustEmbedUnimplementedMI8ServiceServer() {}
 func (UnimplementedMI8ServiceServer) testEmbeddedByValue()                    {}
@@ -146,6 +165,24 @@ func _MI8Service_GetLatestNewsInCity_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MI8Service_CreateNews_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(News)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MI8ServiceServer).CreateNews(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MI8Service_CreateNews_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MI8ServiceServer).CreateNews(ctx, req.(*News))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MI8Service_ServiceDesc is the grpc.ServiceDesc for MI8Service service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -160,6 +197,10 @@ var MI8Service_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetLatestNewsInCity",
 			Handler:    _MI8Service_GetLatestNewsInCity_Handler,
+		},
+		{
+			MethodName: "CreateNews",
+			Handler:    _MI8Service_CreateNews_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

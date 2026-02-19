@@ -9,6 +9,7 @@ package proto
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -249,7 +250,7 @@ var File_proto_mi8_proto protoreflect.FileDescriptor
 
 const file_proto_mi8_proto_rawDesc = "" +
 	"\n" +
-	"\x0fproto/mi8.proto\x12\x03mi8\"\x88\x01\n" +
+	"\x0fproto/mi8.proto\x12\x03mi8\x1a\x1bgoogle/protobuf/empty.proto\"\x88\x01\n" +
 	"\x04News\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x16\n" +
 	"\x06source\x18\x02 \x01(\tR\x06source\x12\x12\n" +
@@ -263,11 +264,13 @@ const file_proto_mi8_proto_rawDesc = "" +
 	"\x04city\x18\x01 \x01(\tR\x04city\x12\x14\n" +
 	"\x05limit\x18\x02 \x01(\x05R\x05limit\")\n" +
 	"\bNewsList\x12\x1d\n" +
-	"\x04news\x18\x01 \x03(\v2\t.mi8.NewsR\x04news2\x92\x01\n" +
+	"\x04news\x18\x01 \x03(\v2\t.mi8.NewsR\x04news2\xc5\x01\n" +
 	"\n" +
 	"MI8Service\x12;\n" +
 	"\rGetLatestNews\x12\x19.mi8.GetLatestNewsRequest\x1a\r.mi8.NewsList\"\x00\x12G\n" +
-	"\x13GetLatestNewsInCity\x12\x1f.mi8.GetLatestNewsInCityRequest\x1a\r.mi8.NewsList\"\x00B\vZ\tmi8/protob\x06proto3"
+	"\x13GetLatestNewsInCity\x12\x1f.mi8.GetLatestNewsInCityRequest\x1a\r.mi8.NewsList\"\x00\x121\n" +
+	"\n" +
+	"CreateNews\x12\t.mi8.News\x1a\x16.google.protobuf.Empty\"\x00B\vZ\tmi8/protob\x06proto3"
 
 var (
 	file_proto_mi8_proto_rawDescOnce sync.Once
@@ -287,15 +290,18 @@ var file_proto_mi8_proto_goTypes = []any{
 	(*GetLatestNewsRequest)(nil),       // 1: mi8.GetLatestNewsRequest
 	(*GetLatestNewsInCityRequest)(nil), // 2: mi8.GetLatestNewsInCityRequest
 	(*NewsList)(nil),                   // 3: mi8.NewsList
+	(*emptypb.Empty)(nil),              // 4: google.protobuf.Empty
 }
 var file_proto_mi8_proto_depIdxs = []int32{
 	0, // 0: mi8.NewsList.news:type_name -> mi8.News
 	1, // 1: mi8.MI8Service.GetLatestNews:input_type -> mi8.GetLatestNewsRequest
 	2, // 2: mi8.MI8Service.GetLatestNewsInCity:input_type -> mi8.GetLatestNewsInCityRequest
-	3, // 3: mi8.MI8Service.GetLatestNews:output_type -> mi8.NewsList
-	3, // 4: mi8.MI8Service.GetLatestNewsInCity:output_type -> mi8.NewsList
-	3, // [3:5] is the sub-list for method output_type
-	1, // [1:3] is the sub-list for method input_type
+	0, // 3: mi8.MI8Service.CreateNews:input_type -> mi8.News
+	3, // 4: mi8.MI8Service.GetLatestNews:output_type -> mi8.NewsList
+	3, // 5: mi8.MI8Service.GetLatestNewsInCity:output_type -> mi8.NewsList
+	4, // 6: mi8.MI8Service.CreateNews:output_type -> google.protobuf.Empty
+	4, // [4:7] is the sub-list for method output_type
+	1, // [1:4] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
