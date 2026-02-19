@@ -25,3 +25,9 @@ cd ../mi8
 # 3. Verify
 echo "Verifying news in MI8..."
 ./grpcurl -plaintext -d '{"limit": 10}' localhost:50051 mi8.MI8Service/GetLatestNews
+
+echo "Verifying Top Cities..."
+./grpcurl -plaintext -d '{"limit": 5}' localhost:50051 mi8.MI8Service/GetTopCities
+
+echo "Verifying Berlin Score..."
+./grpcurl -plaintext -d '{"city": "Berlin"}' localhost:50051 mi8.MI8Service/GetCityScore

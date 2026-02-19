@@ -246,6 +246,230 @@ func (x *NewsList) GetNews() []*News {
 	return nil
 }
 
+type GetCityScoreRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	City          string                 `protobuf:"bytes,1,opt,name=city,proto3" json:"city,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetCityScoreRequest) Reset() {
+	*x = GetCityScoreRequest{}
+	mi := &file_proto_mi8_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetCityScoreRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCityScoreRequest) ProtoMessage() {}
+
+func (x *GetCityScoreRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_mi8_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCityScoreRequest.ProtoReflect.Descriptor instead.
+func (*GetCityScoreRequest) Descriptor() ([]byte, []int) {
+	return file_proto_mi8_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *GetCityScoreRequest) GetCity() string {
+	if x != nil {
+		return x.City
+	}
+	return ""
+}
+
+type GetTopCitiesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Limit         int32                  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTopCitiesRequest) Reset() {
+	*x = GetTopCitiesRequest{}
+	mi := &file_proto_mi8_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTopCitiesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTopCitiesRequest) ProtoMessage() {}
+
+func (x *GetTopCitiesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_mi8_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTopCitiesRequest.ProtoReflect.Descriptor instead.
+func (*GetTopCitiesRequest) Descriptor() ([]byte, []int) {
+	return file_proto_mi8_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *GetTopCitiesRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+type CityScore struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	City          string                 `protobuf:"bytes,1,opt,name=city,proto3" json:"city,omitempty"`
+	Country       string                 `protobuf:"bytes,2,opt,name=country,proto3" json:"country,omitempty"`
+	QualityOfLife int32                  `protobuf:"varint,3,opt,name=quality_of_life,json=qualityOfLife,proto3" json:"quality_of_life,omitempty"`
+	Safety        int32                  `protobuf:"varint,4,opt,name=safety,proto3" json:"safety,omitempty"`
+	Economy       int32                  `protobuf:"varint,5,opt,name=economy,proto3" json:"economy,omitempty"`
+	Culture       int32                  `protobuf:"varint,6,opt,name=culture,proto3" json:"culture,omitempty"`
+	LastUpdated   string                 `protobuf:"bytes,7,opt,name=last_updated,json=lastUpdated,proto3" json:"last_updated,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CityScore) Reset() {
+	*x = CityScore{}
+	mi := &file_proto_mi8_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CityScore) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CityScore) ProtoMessage() {}
+
+func (x *CityScore) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_mi8_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CityScore.ProtoReflect.Descriptor instead.
+func (*CityScore) Descriptor() ([]byte, []int) {
+	return file_proto_mi8_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *CityScore) GetCity() string {
+	if x != nil {
+		return x.City
+	}
+	return ""
+}
+
+func (x *CityScore) GetCountry() string {
+	if x != nil {
+		return x.Country
+	}
+	return ""
+}
+
+func (x *CityScore) GetQualityOfLife() int32 {
+	if x != nil {
+		return x.QualityOfLife
+	}
+	return 0
+}
+
+func (x *CityScore) GetSafety() int32 {
+	if x != nil {
+		return x.Safety
+	}
+	return 0
+}
+
+func (x *CityScore) GetEconomy() int32 {
+	if x != nil {
+		return x.Economy
+	}
+	return 0
+}
+
+func (x *CityScore) GetCulture() int32 {
+	if x != nil {
+		return x.Culture
+	}
+	return 0
+}
+
+func (x *CityScore) GetLastUpdated() string {
+	if x != nil {
+		return x.LastUpdated
+	}
+	return ""
+}
+
+type CityScoreList struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Scores        []*CityScore           `protobuf:"bytes,1,rep,name=scores,proto3" json:"scores,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CityScoreList) Reset() {
+	*x = CityScoreList{}
+	mi := &file_proto_mi8_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CityScoreList) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CityScoreList) ProtoMessage() {}
+
+func (x *CityScoreList) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_mi8_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CityScoreList.ProtoReflect.Descriptor instead.
+func (*CityScoreList) Descriptor() ([]byte, []int) {
+	return file_proto_mi8_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *CityScoreList) GetScores() []*CityScore {
+	if x != nil {
+		return x.Scores
+	}
+	return nil
+}
+
 var File_proto_mi8_proto protoreflect.FileDescriptor
 
 const file_proto_mi8_proto_rawDesc = "" +
@@ -264,13 +488,29 @@ const file_proto_mi8_proto_rawDesc = "" +
 	"\x04city\x18\x01 \x01(\tR\x04city\x12\x14\n" +
 	"\x05limit\x18\x02 \x01(\x05R\x05limit\")\n" +
 	"\bNewsList\x12\x1d\n" +
-	"\x04news\x18\x01 \x03(\v2\t.mi8.NewsR\x04news2\xc5\x01\n" +
+	"\x04news\x18\x01 \x03(\v2\t.mi8.NewsR\x04news\")\n" +
+	"\x13GetCityScoreRequest\x12\x12\n" +
+	"\x04city\x18\x01 \x01(\tR\x04city\"+\n" +
+	"\x13GetTopCitiesRequest\x12\x14\n" +
+	"\x05limit\x18\x01 \x01(\x05R\x05limit\"\xd0\x01\n" +
+	"\tCityScore\x12\x12\n" +
+	"\x04city\x18\x01 \x01(\tR\x04city\x12\x18\n" +
+	"\acountry\x18\x02 \x01(\tR\acountry\x12&\n" +
+	"\x0fquality_of_life\x18\x03 \x01(\x05R\rqualityOfLife\x12\x16\n" +
+	"\x06safety\x18\x04 \x01(\x05R\x06safety\x12\x18\n" +
+	"\aeconomy\x18\x05 \x01(\x05R\aeconomy\x12\x18\n" +
+	"\aculture\x18\x06 \x01(\x05R\aculture\x12!\n" +
+	"\flast_updated\x18\a \x01(\tR\vlastUpdated\"7\n" +
+	"\rCityScoreList\x12&\n" +
+	"\x06scores\x18\x01 \x03(\v2\x0e.mi8.CityScoreR\x06scores2\xc1\x02\n" +
 	"\n" +
 	"MI8Service\x12;\n" +
 	"\rGetLatestNews\x12\x19.mi8.GetLatestNewsRequest\x1a\r.mi8.NewsList\"\x00\x12G\n" +
 	"\x13GetLatestNewsInCity\x12\x1f.mi8.GetLatestNewsInCityRequest\x1a\r.mi8.NewsList\"\x00\x121\n" +
 	"\n" +
-	"CreateNews\x12\t.mi8.News\x1a\x16.google.protobuf.Empty\"\x00B\vZ\tmi8/protob\x06proto3"
+	"CreateNews\x12\t.mi8.News\x1a\x16.google.protobuf.Empty\"\x00\x12:\n" +
+	"\fGetCityScore\x12\x18.mi8.GetCityScoreRequest\x1a\x0e.mi8.CityScore\"\x00\x12>\n" +
+	"\fGetTopCities\x12\x18.mi8.GetTopCitiesRequest\x1a\x12.mi8.CityScoreList\"\x00B\vZ\tmi8/protob\x06proto3"
 
 var (
 	file_proto_mi8_proto_rawDescOnce sync.Once
@@ -284,27 +524,36 @@ func file_proto_mi8_proto_rawDescGZIP() []byte {
 	return file_proto_mi8_proto_rawDescData
 }
 
-var file_proto_mi8_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_proto_mi8_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_proto_mi8_proto_goTypes = []any{
 	(*News)(nil),                       // 0: mi8.News
 	(*GetLatestNewsRequest)(nil),       // 1: mi8.GetLatestNewsRequest
 	(*GetLatestNewsInCityRequest)(nil), // 2: mi8.GetLatestNewsInCityRequest
 	(*NewsList)(nil),                   // 3: mi8.NewsList
-	(*emptypb.Empty)(nil),              // 4: google.protobuf.Empty
+	(*GetCityScoreRequest)(nil),        // 4: mi8.GetCityScoreRequest
+	(*GetTopCitiesRequest)(nil),        // 5: mi8.GetTopCitiesRequest
+	(*CityScore)(nil),                  // 6: mi8.CityScore
+	(*CityScoreList)(nil),              // 7: mi8.CityScoreList
+	(*emptypb.Empty)(nil),              // 8: google.protobuf.Empty
 }
 var file_proto_mi8_proto_depIdxs = []int32{
 	0, // 0: mi8.NewsList.news:type_name -> mi8.News
-	1, // 1: mi8.MI8Service.GetLatestNews:input_type -> mi8.GetLatestNewsRequest
-	2, // 2: mi8.MI8Service.GetLatestNewsInCity:input_type -> mi8.GetLatestNewsInCityRequest
-	0, // 3: mi8.MI8Service.CreateNews:input_type -> mi8.News
-	3, // 4: mi8.MI8Service.GetLatestNews:output_type -> mi8.NewsList
-	3, // 5: mi8.MI8Service.GetLatestNewsInCity:output_type -> mi8.NewsList
-	4, // 6: mi8.MI8Service.CreateNews:output_type -> google.protobuf.Empty
-	4, // [4:7] is the sub-list for method output_type
-	1, // [1:4] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	6, // 1: mi8.CityScoreList.scores:type_name -> mi8.CityScore
+	1, // 2: mi8.MI8Service.GetLatestNews:input_type -> mi8.GetLatestNewsRequest
+	2, // 3: mi8.MI8Service.GetLatestNewsInCity:input_type -> mi8.GetLatestNewsInCityRequest
+	0, // 4: mi8.MI8Service.CreateNews:input_type -> mi8.News
+	4, // 5: mi8.MI8Service.GetCityScore:input_type -> mi8.GetCityScoreRequest
+	5, // 6: mi8.MI8Service.GetTopCities:input_type -> mi8.GetTopCitiesRequest
+	3, // 7: mi8.MI8Service.GetLatestNews:output_type -> mi8.NewsList
+	3, // 8: mi8.MI8Service.GetLatestNewsInCity:output_type -> mi8.NewsList
+	8, // 9: mi8.MI8Service.CreateNews:output_type -> google.protobuf.Empty
+	6, // 10: mi8.MI8Service.GetCityScore:output_type -> mi8.CityScore
+	7, // 11: mi8.MI8Service.GetTopCities:output_type -> mi8.CityScoreList
+	7, // [7:12] is the sub-list for method output_type
+	2, // [2:7] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_proto_mi8_proto_init() }
@@ -318,7 +567,7 @@ func file_proto_mi8_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_mi8_proto_rawDesc), len(file_proto_mi8_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

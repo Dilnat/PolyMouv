@@ -23,6 +23,8 @@ const (
 	MI8Service_GetLatestNews_FullMethodName       = "/mi8.MI8Service/GetLatestNews"
 	MI8Service_GetLatestNewsInCity_FullMethodName = "/mi8.MI8Service/GetLatestNewsInCity"
 	MI8Service_CreateNews_FullMethodName          = "/mi8.MI8Service/CreateNews"
+	MI8Service_GetCityScore_FullMethodName        = "/mi8.MI8Service/GetCityScore"
+	MI8Service_GetTopCities_FullMethodName        = "/mi8.MI8Service/GetTopCities"
 )
 
 // MI8ServiceClient is the client API for MI8Service service.
@@ -37,6 +39,10 @@ type MI8ServiceClient interface {
 	GetLatestNewsInCity(ctx context.Context, in *GetLatestNewsInCityRequest, opts ...grpc.CallOption) (*NewsList, error)
 	// Create news
 	CreateNews(ctx context.Context, in *News, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// Get city scores
+	GetCityScore(ctx context.Context, in *GetCityScoreRequest, opts ...grpc.CallOption) (*CityScore, error)
+	// Get top cities
+	GetTopCities(ctx context.Context, in *GetTopCitiesRequest, opts ...grpc.CallOption) (*CityScoreList, error)
 }
 
 type mI8ServiceClient struct {
@@ -77,6 +83,26 @@ func (c *mI8ServiceClient) CreateNews(ctx context.Context, in *News, opts ...grp
 	return out, nil
 }
 
+func (c *mI8ServiceClient) GetCityScore(ctx context.Context, in *GetCityScoreRequest, opts ...grpc.CallOption) (*CityScore, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CityScore)
+	err := c.cc.Invoke(ctx, MI8Service_GetCityScore_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mI8ServiceClient) GetTopCities(ctx context.Context, in *GetTopCitiesRequest, opts ...grpc.CallOption) (*CityScoreList, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CityScoreList)
+	err := c.cc.Invoke(ctx, MI8Service_GetTopCities_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MI8ServiceServer is the server API for MI8Service service.
 // All implementations must embed UnimplementedMI8ServiceServer
 // for forward compatibility.
@@ -89,6 +115,10 @@ type MI8ServiceServer interface {
 	GetLatestNewsInCity(context.Context, *GetLatestNewsInCityRequest) (*NewsList, error)
 	// Create news
 	CreateNews(context.Context, *News) (*emptypb.Empty, error)
+	// Get city scores
+	GetCityScore(context.Context, *GetCityScoreRequest) (*CityScore, error)
+	// Get top cities
+	GetTopCities(context.Context, *GetTopCitiesRequest) (*CityScoreList, error)
 	mustEmbedUnimplementedMI8ServiceServer()
 }
 
@@ -107,6 +137,12 @@ func (UnimplementedMI8ServiceServer) GetLatestNewsInCity(context.Context, *GetLa
 }
 func (UnimplementedMI8ServiceServer) CreateNews(context.Context, *News) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method CreateNews not implemented")
+}
+func (UnimplementedMI8ServiceServer) GetCityScore(context.Context, *GetCityScoreRequest) (*CityScore, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCityScore not implemented")
+}
+func (UnimplementedMI8ServiceServer) GetTopCities(context.Context, *GetTopCitiesRequest) (*CityScoreList, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetTopCities not implemented")
 }
 func (UnimplementedMI8ServiceServer) mustEmbedUnimplementedMI8ServiceServer() {}
 func (UnimplementedMI8ServiceServer) testEmbeddedByValue()                    {}
@@ -183,6 +219,42 @@ func _MI8Service_CreateNews_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MI8Service_GetCityScore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCityScoreRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MI8ServiceServer).GetCityScore(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MI8Service_GetCityScore_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MI8ServiceServer).GetCityScore(ctx, req.(*GetCityScoreRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MI8Service_GetTopCities_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTopCitiesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MI8ServiceServer).GetTopCities(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MI8Service_GetTopCities_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MI8ServiceServer).GetTopCities(ctx, req.(*GetTopCitiesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MI8Service_ServiceDesc is the grpc.ServiceDesc for MI8Service service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -201,6 +273,14 @@ var MI8Service_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateNews",
 			Handler:    _MI8Service_CreateNews_Handler,
+		},
+		{
+			MethodName: "GetCityScore",
+			Handler:    _MI8Service_GetCityScore_Handler,
+		},
+		{
+			MethodName: "GetTopCities",
+			Handler:    _MI8Service_GetTopCities_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

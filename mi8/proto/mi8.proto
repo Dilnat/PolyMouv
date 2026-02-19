@@ -16,6 +16,12 @@ service MI8Service {
 
   // Create news
   rpc CreateNews (News) returns (google.protobuf.Empty) {}
+
+  // Get city scores
+  rpc GetCityScore (GetCityScoreRequest) returns (CityScore) {}
+
+  // Get top cities
+  rpc GetTopCities (GetTopCitiesRequest) returns (CityScoreList) {}
 }
 
 message News {
@@ -38,4 +44,26 @@ message GetLatestNewsInCityRequest {
 
 message NewsList {
   repeated News news = 1;
+}
+
+message GetCityScoreRequest {
+  string city = 1;
+}
+
+message GetTopCitiesRequest {
+  int32 limit = 1;
+}
+
+message CityScore {
+  string city = 1;
+  string country = 2;
+  int32 quality_of_life = 3;
+  int32 safety = 4;
+  int32 economy = 5;
+  int32 culture = 6;
+  string last_updated = 7;
+}
+
+message CityScoreList {
+  repeated CityScore scores = 1;
 }

@@ -12,6 +12,8 @@ type NewsRepository interface {
 	GetLatestNews(limit int) ([]*pb.News, error)
 	GetLatestNewsInCity(city string, limit int) ([]*pb.News, error)
 	CreateNews(news *pb.News) error
+    GetCityScore(city string) (*pb.CityScore, error)
+    GetTopCities(limit int) ([]*pb.CityScore, error)
 }
 
 // ArrayNewsRepository implementation
@@ -86,4 +88,12 @@ func (r *ArrayNewsRepository) GetLatestNewsInCity(city string, limit int) ([]*pb
         limit = len(filtered)
     }
 	return filtered[:limit], nil
+}
+
+func (r *ArrayNewsRepository) GetCityScore(city string) (*pb.CityScore, error) {
+    return &pb.CityScore{City: city, Safety: 1000}, nil
+}
+
+func (r *ArrayNewsRepository) GetTopCities(limit int) ([]*pb.CityScore, error) {
+    return []*pb.CityScore{}, nil
 }
