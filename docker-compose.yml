@@ -21,7 +21,26 @@ services:
     volumes:
       - polytech-db-data:/var/lib/postgresql/data
     ports:
-      - "5433:5432" # Changed host port to avoid conflict if needed, or stick to standard but expose service internal port. Let's start with 5433 to allow local testing while this runs.
+      - "5433:5432"
+
+  erasmumu:
+    build: ./erasmumu
+    ports:
+      - "8081:8080"
+    environment:
+      - MONGODB_URI=mongodb://erasmumu-db:27017
+    depends_on:
+      - erasmumu-db
+    restart: always
+
+  erasmumu-db:
+    image: mongo:6-jammy
+    restart: always
+    volumes:
+      - erasmumu-db-data:/data/db
+    ports:
+      - "27018:27017"
 
 volumes:
   polytech-db-data:
+  erasmumu-db-data:
