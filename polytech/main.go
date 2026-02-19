@@ -6,10 +6,12 @@ import (
 
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/jackc/pgx/v5/pgxpool"
+    "polytech/client" 
 )
 
 func main() {
@@ -61,6 +63,19 @@ func main() {
 
 	r.Post("/internship", registerInternship)
 	r.Get("/internship/{id}", getRegistration)
+
+    // Start MI8 Client verification
+    go func() {
+        time.Sleep(5 * time.Second) // Wait for MI8 to start
+        fmt.Println("Connecting to MI8...")
+        client, err := client.NewMI8Client("mi8:50051")
+        if err != nil {
+            fmt.Printf("Failed to connect to MI8: %v\n", err)
+            return
+        }
+        defer client.Close()
+        client.GetLatestNews(5)
+    }()
 
 	fmt.Println("Server starting on :8080")
 	http.ListenAndServe(":8080", r)

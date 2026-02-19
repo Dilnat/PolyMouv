@@ -21,7 +21,7 @@ services:
     volumes:
       - polytech-db-data:/var/lib/postgresql/data
     ports:
-      - "5433:5432"
+      - "5434:5432"
 
   erasmumu:
     build: ./erasmumu
@@ -40,6 +40,12 @@ services:
       - erasmumu-db-data:/data/db
     ports:
       - "27018:27017"
+
+  mi8:
+    build: ./mi8
+    ports:
+      - "50051:50051"
+    restart: always
 
 volumes:
   polytech-db-data:

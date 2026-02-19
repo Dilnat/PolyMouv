@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package mi8;
+
+option go_package = "polytech/proto";
+
+// The MI8 service definition.
+service MI8Service {
+  // Get latest news
+  rpc GetLatestNews (GetLatestNewsRequest) returns (NewsList) {}
+  
+  // Get latest news by city
+  rpc GetLatestNewsInCity (GetLatestNewsInCityRequest) returns (NewsList) {}
+}
+
+message News {
+  string name = 1;
+  string source = 2;
+  string date = 3;
+  repeated string tags = 4;
+  string city = 5;
+  string country = 6;
+}
+
+message GetLatestNewsRequest {
+  int32 limit = 1;
+}
+
+message GetLatestNewsInCityRequest {
+  string city = 1;
+  int32 limit = 2;
+}
+
+message NewsList {
+  repeated News news = 1;
+}
