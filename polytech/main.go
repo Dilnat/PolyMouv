@@ -35,7 +35,14 @@ func main() {
 			firstname TEXT NOT NULL,
 			name TEXT NOT NULL,
 			domain TEXT NOT NULL
-		)
+		);
+		CREATE TABLE IF NOT EXISTS registrations (
+			id SERIAL PRIMARY KEY,
+			student_id INT NOT NULL,
+			offer_id TEXT NOT NULL,
+			status TEXT NOT NULL,
+			message TEXT
+		);
 	`)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to create table: %v\n", err)
@@ -51,6 +58,9 @@ func main() {
 	r.Get("/student", getStudents)
 	r.Put("/student/{id}", updateStudent)
 	r.Delete("/student/{id}", deleteStudent)
+
+	r.Post("/internship", registerInternship)
+	r.Get("/internship/{id}", getRegistration)
 
 	fmt.Println("Server starting on :8080")
 	http.ListenAndServe(":8080", r)
